@@ -6,38 +6,32 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Results {
-
-    @SerializedName("count")
-    @Expose
-    private Integer count;
-    @SerializedName("took")
-    @Expose
-    private Double took;
-    @SerializedName("next_offset")
-    @Expose
-    private Integer nextOffset;
-    @SerializedName("total")
-    @Expose
-    private Integer total;
-    @SerializedName("results")
-    @Expose
-    private List<Podcast> results = null;
-    @SerializedName("previous_page_number")
-    @Expose
-    private Integer previousPageNumber;
     @SerializedName("next_page_number")
     @Expose
     private Integer nextPageNumber;
-    @SerializedName("page_number")
+    @SerializedName("previous_page_number")
     @Expose
-    private Integer pageNumber;
-    @SerializedName("has_previous")
-    @Expose
-    private Boolean hasPrevious;
-
+    private Integer previousPageNumber;
     @SerializedName("has_next")
     @Expose
     private Boolean hasNext;
+    @SerializedName("page_number")
+    @Expose
+    private Integer pageNumber;
+    @SerializedName("total")
+    @Expose
+    private Integer total;
+    @SerializedName("curated_lists")
+    @Expose
+    private List<Category> categories = null;
+
+    public Integer getNextPageNumber() {
+        return nextPageNumber;
+    }
+
+    public void setNextPageNumber(Integer nextPageNumber) {
+        this.nextPageNumber = nextPageNumber;
+    }
 
     public Integer getPreviousPageNumber() {
         return previousPageNumber;
@@ -47,12 +41,12 @@ public class Results {
         this.previousPageNumber = previousPageNumber;
     }
 
-    public Integer getNextPageNumber() {
-        return nextPageNumber;
+    public Boolean getHasNext() {
+        return hasNext;
     }
 
-    public void setNextPageNumber(Integer nextPageNumber) {
-        this.nextPageNumber = nextPageNumber;
+    public void setHasNext(Boolean hasNext) {
+        this.hasNext = hasNext;
     }
 
     public Integer getPageNumber() {
@@ -63,47 +57,6 @@ public class Results {
         this.pageNumber = pageNumber;
     }
 
-    public Boolean getHasPrevious() {
-        return hasPrevious;
-    }
-
-    public void setHasPrevious(Boolean hasPrevious) {
-        this.hasPrevious = hasPrevious;
-    }
-
-
-    public Boolean getHasNext() {
-        return hasNext;
-    }
-
-    public void setHasNext(Boolean hasNext) {
-        this.hasNext = hasNext;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public Double getTook() {
-        return took;
-    }
-
-    public void setTook(Double took) {
-        this.took = took;
-    }
-
-    public Integer getNextOffset() {
-        return nextOffset;
-    }
-
-    public void setNextOffset(Integer nextOffset) {
-        this.nextOffset = nextOffset;
-    }
-
     public Integer getTotal() {
         return total;
     }
@@ -112,13 +65,12 @@ public class Results {
         this.total = total;
     }
 
-    public List<Podcast> getResults() {
-        return results;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setResults(List<Podcast> results) {
-        this.results = results;
+    public void setCuratedLists(List<Category> categories) {
+        this.categories = categories;
     }
-
 }
 
