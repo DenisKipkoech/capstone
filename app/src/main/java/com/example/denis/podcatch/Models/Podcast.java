@@ -6,215 +6,106 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Podcast {
-    @SerializedName("audio_length")
+//    @SerializedName("looking_for")
+//    @Expose
+//    private LookingFor lookingFor;
+    @SerializedName("total_episodes")
     @Expose
-    private String audioLength;
-    @SerializedName("transcripts_highlighted")
+    private Integer totalEpisodes;
+    @SerializedName("episodes")
     @Expose
-    private List<Object> transcriptsHighlighted = null;
-    @SerializedName("title_original")
+    private List<Episode> episodes = null;
+    @SerializedName("next_episode_pub_date")
     @Expose
-    private String titleOriginal;
-    @SerializedName("podcast_id")
-    @Expose
-    private String podcastId;
-    @SerializedName("publisher_highlighted")
-    @Expose
-    private String publisherHighlighted;
-    @SerializedName("description_original")
-    @Expose
-    private String descriptionOriginal;
-    @SerializedName("explicit_content")
-    @Expose
-    private Boolean explicitContent;
-    @SerializedName("listennotes_url")
-    @Expose
-    private String listennotesUrl;
-    @SerializedName("podcast_listennotes_url")
-    @Expose
-    private String podcastListennotesUrl;
-    @SerializedName("image")
-    @Expose
-    private String image;
-    @SerializedName("thumbnail")
-    @Expose
-    private String thumbnail;
-    @SerializedName("description_highlighted")
-    @Expose
-    private String descriptionHighlighted;
-    @SerializedName("audio")
-    @Expose
-    private String audio;
-    @SerializedName("genres")
-    @Expose
-    private List<Integer> genres = null;
-    @SerializedName("podcast_title_original")
-    @Expose
-    private String podcastTitleOriginal;
-    @SerializedName("podcast_title_highlighted")
-    @Expose
-    private String podcastTitleHighlighted;
-    @SerializedName("pub_date_ms")
-    @Expose
-    private Integer pubDateMs;
-    @SerializedName("publisher_original")
-    @Expose
-    private String publisherOriginal;
+    private Integer nextEpisodePubDate;
     @SerializedName("rss")
     @Expose
     private String rss;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("title")
+    @Expose
+    private String title;
     @SerializedName("itunes_id")
     @Expose
     private Integer itunesId;
+    @SerializedName("lastest_pub_date_ms")
+    @Expose
+    private Integer lastestPubDateMs;
+    @SerializedName("earliest_pub_date_ms")
+    @Expose
+    private Integer earliestPubDateMs;
+    @SerializedName("publisher")
+    @Expose
+    private String publisher;
+    @SerializedName("website")
+    @Expose
+    private String website;
+    @SerializedName("genres")
+    @Expose
+    private List<String> genres = null;
+    @SerializedName("listennotes_url")
+    @Expose
+    private String listennotesUrl;
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("title_highlighted")
+    @SerializedName("image")
     @Expose
-    private String titleHighlighted;
+    private String image;
+    @SerializedName("language")
+    @Expose
+    private String language;
+    @SerializedName("is_claimed")
+    @Expose
+    private Boolean isClaimed;
+//    @SerializedName("extra")
+//    @Expose
+//    private Extra extra;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("explicit_content")
+    @Expose
+    private Boolean explicitContent;
+    @SerializedName("country")
+    @Expose
+    private String country;
+    @SerializedName("thumbnail")
+    @Expose
+    private String thumbnail;
 
-    public String getAudioLength() {
-        return audioLength;
+//    public LookingFor getLookingFor() {
+//        return lookingFor;
+//    }
+//
+//    public void setLookingFor(LookingFor lookingFor) {
+//        this.lookingFor = lookingFor;
+//    }
+
+    public Integer getTotalEpisodes() {
+        return totalEpisodes;
     }
 
-    public void setAudioLength(String audioLength) {
-        this.audioLength = audioLength;
+    public void setTotalEpisodes(Integer totalEpisodes) {
+        this.totalEpisodes = totalEpisodes;
     }
 
-    public List<Object> getTranscriptsHighlighted() {
-        return transcriptsHighlighted;
+    public List<Episode> getEpisodes() {
+        return episodes;
     }
 
-    public void setTranscriptsHighlighted(List<Object> transcriptsHighlighted) {
-        this.transcriptsHighlighted = transcriptsHighlighted;
+    public void setEpisodes(List<Episode> episodes) {
+        this.episodes = episodes;
     }
 
-    public String getTitleOriginal() {
-        return titleOriginal;
+    public Integer getNextEpisodePubDate() {
+        return nextEpisodePubDate;
     }
 
-    public void setTitleOriginal(String titleOriginal) {
-        this.titleOriginal = titleOriginal;
-    }
-
-    public String getPodcastId() {
-        return podcastId;
-    }
-
-    public void setPodcastId(String podcastId) {
-        this.podcastId = podcastId;
-    }
-
-    public String getPublisherHighlighted() {
-        return publisherHighlighted;
-    }
-
-    public void setPublisherHighlighted(String publisherHighlighted) {
-        this.publisherHighlighted = publisherHighlighted;
-    }
-
-    public String getDescriptionOriginal() {
-        return descriptionOriginal;
-    }
-
-    public void setDescriptionOriginal(String descriptionOriginal) {
-        this.descriptionOriginal = descriptionOriginal;
-    }
-
-    public Boolean getExplicitContent() {
-        return explicitContent;
-    }
-
-    public void setExplicitContent(Boolean explicitContent) {
-        this.explicitContent = explicitContent;
-    }
-
-    public String getListennotesUrl() {
-        return listennotesUrl;
-    }
-
-    public void setListennotesUrl(String listennotesUrl) {
-        this.listennotesUrl = listennotesUrl;
-    }
-
-    public String getPodcastListennotesUrl() {
-        return podcastListennotesUrl;
-    }
-
-    public void setPodcastListennotesUrl(String podcastListennotesUrl) {
-        this.podcastListennotesUrl = podcastListennotesUrl;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public String getDescriptionHighlighted() {
-        return descriptionHighlighted;
-    }
-
-    public void setDescriptionHighlighted(String descriptionHighlighted) {
-        this.descriptionHighlighted = descriptionHighlighted;
-    }
-
-    public String getAudio() {
-        return audio;
-    }
-
-    public void setAudio(String audio) {
-        this.audio = audio;
-    }
-
-    public List<Integer> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Integer> genres) {
-        this.genres = genres;
-    }
-
-    public String getPodcastTitleOriginal() {
-        return podcastTitleOriginal;
-    }
-
-    public void setPodcastTitleOriginal(String podcastTitleOriginal) {
-        this.podcastTitleOriginal = podcastTitleOriginal;
-    }
-
-    public String getPodcastTitleHighlighted() {
-        return podcastTitleHighlighted;
-    }
-
-    public void setPodcastTitleHighlighted(String podcastTitleHighlighted) {
-        this.podcastTitleHighlighted = podcastTitleHighlighted;
-    }
-
-    public Integer getPubDateMs() {
-        return pubDateMs;
-    }
-
-    public void setPubDateMs(Integer pubDateMs) {
-        this.pubDateMs = pubDateMs;
-    }
-
-    public String getPublisherOriginal() {
-        return publisherOriginal;
-    }
-
-    public void setPublisherOriginal(String publisherOriginal) {
-        this.publisherOriginal = publisherOriginal;
+    public void setNextEpisodePubDate(Integer nextEpisodePubDate) {
+        this.nextEpisodePubDate = nextEpisodePubDate;
     }
 
     public String getRss() {
@@ -225,12 +116,76 @@ public class Podcast {
         this.rss = rss;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Integer getItunesId() {
         return itunesId;
     }
 
     public void setItunesId(Integer itunesId) {
         this.itunesId = itunesId;
+    }
+
+    public Integer getLastestPubDateMs() {
+        return lastestPubDateMs;
+    }
+
+    public void setLastestPubDateMs(Integer lastestPubDateMs) {
+        this.lastestPubDateMs = lastestPubDateMs;
+    }
+
+    public Integer getEarliestPubDateMs() {
+        return earliestPubDateMs;
+    }
+
+    public void setEarliestPubDateMs(Integer earliestPubDateMs) {
+        this.earliestPubDateMs = earliestPubDateMs;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public String getListennotesUrl() {
+        return listennotesUrl;
+    }
+
+    public void setListennotesUrl(String listennotesUrl) {
+        this.listennotesUrl = listennotesUrl;
     }
 
     public String getId() {
@@ -241,12 +196,68 @@ public class Podcast {
         this.id = id;
     }
 
-    public String getTitleHighlighted() {
-        return titleHighlighted;
+    public String getImage() {
+        return image;
     }
 
-    public void setTitleHighlighted(String titleHighlighted) {
-        this.titleHighlighted = titleHighlighted;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Boolean getIsClaimed() {
+        return isClaimed;
+    }
+
+    public void setIsClaimed(Boolean isClaimed) {
+        this.isClaimed = isClaimed;
+    }
+
+//    public Extra getExtra() {
+//        return extra;
+//    }
+//
+//    public void setExtra(Extra extra) {
+//        this.extra = extra;
+//    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getExplicitContent() {
+        return explicitContent;
+    }
+
+    public void setExplicitContent(Boolean explicitContent) {
+        this.explicitContent = explicitContent;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
 }
