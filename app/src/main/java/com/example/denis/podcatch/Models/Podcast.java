@@ -1,10 +1,13 @@
 package com.example.denis.podcatch.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
+@Entity(tableName = "podcast")
 public class Podcast {
 //    @SerializedName("looking_for")
 //    @Expose
@@ -48,6 +51,8 @@ public class Podcast {
     @SerializedName("listennotes_url")
     @Expose
     private String listennotesUrl;
+
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private String id;
