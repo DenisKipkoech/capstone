@@ -1,6 +1,7 @@
 package com.example.denis.podcatch.Models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -17,6 +18,7 @@ public class Podcast {
     private Integer totalEpisodes;
     @SerializedName("episodes")
     @Expose
+    @Ignore
     private List<Episode> episodes = null;
     @SerializedName("next_episode_pub_date")
     @Expose
@@ -47,6 +49,7 @@ public class Podcast {
     private String website;
     @SerializedName("genres")
     @Expose
+    @Ignore
     private List<String> genres = null;
     @SerializedName("listennotes_url")
     @Expose
@@ -88,6 +91,31 @@ public class Podcast {
 //    public void setLookingFor(LookingFor lookingFor) {
 //        this.lookingFor = lookingFor;
 //    }
+
+
+    public Podcast(Integer totalEpisodes, List<Episode> episodes, Integer nextEpisodePubDate, String rss, String description, String title, Integer itunesId, Integer lastestPubDateMs, Integer earliestPubDateMs, String publisher, String website, List<String> genres, String listennotesUrl, String id, String image, String language, Boolean isClaimed, String email, Boolean explicitContent, String country, String thumbnail) {
+        this.totalEpisodes = totalEpisodes;
+        this.episodes = episodes;
+        this.nextEpisodePubDate = nextEpisodePubDate;
+        this.rss = rss;
+        this.description = description;
+        this.title = title;
+        this.itunesId = itunesId;
+        this.lastestPubDateMs = lastestPubDateMs;
+        this.earliestPubDateMs = earliestPubDateMs;
+        this.publisher = publisher;
+        this.website = website;
+        this.genres = genres;
+        this.listennotesUrl = listennotesUrl;
+        this.id = id;
+        this.image = image;
+        this.language = language;
+        this.isClaimed = isClaimed;
+        this.email = email;
+        this.explicitContent = explicitContent;
+        this.country = country;
+        this.thumbnail = thumbnail;
+    }
 
     public Integer getTotalEpisodes() {
         return totalEpisodes;

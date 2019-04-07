@@ -31,6 +31,17 @@ public class Category {
     @Expose
     private String title;
 
+    public Category(String sourceDomain, String listennotesUrl, Integer pubDateMs, String sourceUrl, String id, String description, List<Podcast> podcasts, String title) {
+        this.sourceDomain = sourceDomain;
+        this.listennotesUrl = listennotesUrl;
+        this.pubDateMs = pubDateMs;
+        this.sourceUrl = sourceUrl;
+        this.id = id;
+        this.description = description;
+        this.podcasts = podcasts;
+        this.title = title;
+    }
+
     public String getSourceDomain() {
         return sourceDomain;
     }

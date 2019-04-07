@@ -41,6 +41,21 @@ public class Episode {
     @Expose
     private Integer audioLength;
 
+    public Episode(Boolean maybeAudioInvalid, Integer pubDateMs, String listennotesUrl, String id, String image, String description, String title, String thumbnail, String listennotesEditUrl, Boolean explicitContent, String audio, Integer audioLength) {
+        this.maybeAudioInvalid = maybeAudioInvalid;
+        this.pubDateMs = pubDateMs;
+        this.listennotesUrl = listennotesUrl;
+        this.id = id;
+        this.image = image;
+        this.description = description;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.listennotesEditUrl = listennotesEditUrl;
+        this.explicitContent = explicitContent;
+        this.audio = audio;
+        this.audioLength = audioLength;
+    }
+
     public Boolean getMaybeAudioInvalid() {
         return maybeAudioInvalid;
     }
