@@ -26,6 +26,6 @@ public interface PodcastDao {
     @Delete
     void deletePodcast(Podcast podcast);
 
-    @Query("SELECT * FROM movie WHERE id = :id")
+    @Query("SELECT * FROM podcast WHERE id = :id")
     Podcast loadPoadcastById(int id);
 }
