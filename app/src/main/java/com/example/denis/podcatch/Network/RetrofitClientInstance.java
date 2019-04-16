@@ -22,7 +22,7 @@ public class RetrofitClientInstance {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addInterceptor(logging);
+//            httpClient.addInterceptor(logging);
 
             Interceptor headerAuthorisationInterceptor = new Interceptor() {
                 @Override
