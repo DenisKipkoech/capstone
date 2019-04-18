@@ -47,7 +47,8 @@ public class PodcastCategoryAdapter extends RecyclerView.Adapter<PodcastCategory
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PodcastDetailActivity.class);
-                intent.putExtra("podcast_id", podcast.getId());
+                String id = podcast.getId();
+                intent.putExtra("podcast_id", id);
 
                 context.startActivity(intent);
             }
