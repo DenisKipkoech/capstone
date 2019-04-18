@@ -4,12 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Episode {
-    @SerializedName("maybe_audio_invalid")
-    @Expose
-    private Boolean maybeAudioInvalid;
+
     @SerializedName("pub_date_ms")
     @Expose
-    private Integer pubDateMs;
+    private Long pubDateMs;
     @SerializedName("listennotes_url")
     @Expose
     private String listennotesUrl;
@@ -31,18 +29,16 @@ public class Episode {
     @SerializedName("listennotes_edit_url")
     @Expose
     private String listennotesEditUrl;
-    @SerializedName("explicit_content")
-    @Expose
-    private Boolean explicitContent;
+
     @SerializedName("audio")
     @Expose
     private String audio;
     @SerializedName("audio_length")
     @Expose
-    private Integer audioLength;
+    private Long audioLength;
 
-    public Episode(Boolean maybeAudioInvalid, Integer pubDateMs, String listennotesUrl, String id, String image, String description, String title, String thumbnail, String listennotesEditUrl, Boolean explicitContent, String audio, Integer audioLength) {
-        this.maybeAudioInvalid = maybeAudioInvalid;
+    public Episode(Long pubDateMs, String listennotesUrl, String id, String image, String description, String title, String thumbnail, String listennotesEditUrl, String audio, Long audioLength) {
+
         this.pubDateMs = pubDateMs;
         this.listennotesUrl = listennotesUrl;
         this.id = id;
@@ -51,24 +47,17 @@ public class Episode {
         this.title = title;
         this.thumbnail = thumbnail;
         this.listennotesEditUrl = listennotesEditUrl;
-        this.explicitContent = explicitContent;
+
         this.audio = audio;
         this.audioLength = audioLength;
     }
 
-    public Boolean getMaybeAudioInvalid() {
-        return maybeAudioInvalid;
-    }
 
-    public void setMaybeAudioInvalid(Boolean maybeAudioInvalid) {
-        this.maybeAudioInvalid = maybeAudioInvalid;
-    }
-
-    public Integer getPubDateMs() {
+    public Long getPubDateMs() {
         return pubDateMs;
     }
 
-    public void setPubDateMs(Integer pubDateMs) {
+    public void setPubDateMs(Long pubDateMs) {
         this.pubDateMs = pubDateMs;
     }
 
@@ -128,13 +117,6 @@ public class Episode {
         this.listennotesEditUrl = listennotesEditUrl;
     }
 
-    public Boolean getExplicitContent() {
-        return explicitContent;
-    }
-
-    public void setExplicitContent(Boolean explicitContent) {
-        this.explicitContent = explicitContent;
-    }
 
     public String getAudio() {
         return audio;
@@ -144,11 +126,11 @@ public class Episode {
         this.audio = audio;
     }
 
-    public Integer getAudioLength() {
+    public Long getAudioLength() {
         return audioLength;
     }
 
-    public void setAudioLength(Integer audioLength) {
+    public void setAudioLength(Long audioLength) {
         this.audioLength = audioLength;
     }
 }
