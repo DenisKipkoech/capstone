@@ -1,5 +1,7 @@
 package com.example.denis.podcatch.Models;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,6 +26,18 @@ public class Results {
     @SerializedName("curated_lists")
     @Expose
     private List<Category> categories = null;
+
+    public Results() {
+    }
+
+    public Results(Integer nextPageNumber, Integer previousPageNumber, Boolean hasNext, Integer pageNumber, Integer total, List<Category> categories) {
+        this.nextPageNumber = nextPageNumber;
+        this.previousPageNumber = previousPageNumber;
+        this.hasNext = hasNext;
+        this.pageNumber = pageNumber;
+        this.total = total;
+        this.categories = categories;
+    }
 
     public Integer getNextPageNumber() {
         return nextPageNumber;
@@ -65,6 +79,7 @@ public class Results {
         this.total = total;
     }
 
+    @NonNull
     public List<Category> getCategories() {
         return categories;
     }
