@@ -12,7 +12,10 @@ import com.example.denis.podcatch.Models.Episode;
 import com.example.denis.podcatch.Models.Podcast;
 import com.example.denis.podcatch.R;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class PodcastDetailAdapter extends RecyclerView.Adapter<PodcastDetailAdapter.PodcastViewHolder>{
     private Context context;
@@ -36,14 +39,26 @@ public class PodcastDetailAdapter extends RecyclerView.Adapter<PodcastDetailAdap
         final Episode episode = episodes.get(holder.getAdapterPosition());
 
         holder.episode_name.setText(episode.getTitle());
-        holder.duration.setText(episode.getAudioLength());
-        holder.date.setText(episode.getPubDateMs());
+        holder.duration.setText(timeFormat(episode.getAudioLength()));
+        holder.date.setText(dateFormat(episode.getPubDateMs()));
 
     }
 
     @Override
     public int getItemCount() {
         return episodes.size();
+    }
+
+    private String dateFormat(Long timestamp){
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        calendar.setTimeInMillis(timestamp);
+        return android.text.format.DateFormat
+                .format("dd-MM-yyyy", calendar).toString();
+
+    }
+
+    private String timeFormat(Long timestamp){
+        return (timestamp%60) + " min";
     }
 
     public class PodcastViewHolder extends RecyclerView.ViewHolder{
