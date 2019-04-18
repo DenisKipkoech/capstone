@@ -14,7 +14,7 @@ public class Category {
     private String listennotesUrl;
     @SerializedName("pub_date_ms")
     @Expose
-    private Integer pubDateMs;
+    private Long pubDateMs;
     @SerializedName("source_url")
     @Expose
     private String sourceUrl;
@@ -31,7 +31,7 @@ public class Category {
     @Expose
     private String title;
 
-    public Category(String sourceDomain, String listennotesUrl, Integer pubDateMs, String sourceUrl, String id, String description, List<Podcast> podcasts, String title) {
+    public Category(String sourceDomain, String listennotesUrl, Long pubDateMs, String sourceUrl, String id, String description, List<Podcast> podcasts, String title) {
         this.sourceDomain = sourceDomain;
         this.listennotesUrl = listennotesUrl;
         this.pubDateMs = pubDateMs;
@@ -58,11 +58,11 @@ public class Category {
         this.listennotesUrl = listennotesUrl;
     }
 
-    public Integer getPubDateMs() {
+    public Long getPubDateMs() {
         return pubDateMs;
     }
 
-    public void setPubDateMs(Integer pubDateMs) {
+    public void setPubDateMs(Long  pubDateMs) {
         this.pubDateMs = pubDateMs;
     }
 
