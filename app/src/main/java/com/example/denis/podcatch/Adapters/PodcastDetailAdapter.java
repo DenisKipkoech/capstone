@@ -20,10 +20,12 @@ import java.util.Locale;
 public class PodcastDetailAdapter extends RecyclerView.Adapter<PodcastDetailAdapter.PodcastViewHolder>{
     private Context context;
     private ArrayList<Episode> episodes;
+    final private ItemClickListener itemClickListener;
 
-    public PodcastDetailAdapter(Context context, ArrayList<Episode> episodes) {
+    public PodcastDetailAdapter(Context context, ArrayList<Episode> episodes, ItemClickListener listener) {
         this.context = context;
         this.episodes = episodes;
+        this.itemClickListener = listener;
     }
 
     @NonNull
@@ -61,13 +63,25 @@ public class PodcastDetailAdapter extends RecyclerView.Adapter<PodcastDetailAdap
         return (timestamp%60) + " min";
     }
 
-    public class PodcastViewHolder extends RecyclerView.ViewHolder{
+    public interface ItemClickListener{
+        void onItemClickListener(String audioUrl);
+    }
+
+    public class PodcastViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView episode_name, duration, date;
       public PodcastViewHolder(View itemView) {
           super(itemView);
           episode_name = itemView.findViewById(R.id.tv_episode_name);
           duration = itemView.findViewById(R.id.tv_duration);
           date = itemView.findViewById(R.id.tv_date);
+
+          itemView.setOnClickListener(this);
       }
-  }
+
+        @Override
+        public void onClick(View v) {
+          String url = episodes.get(getAdapterPosition()).getAudio();
+            itemClickListener.onItemClickListener(url);
+        }
+    }
 }

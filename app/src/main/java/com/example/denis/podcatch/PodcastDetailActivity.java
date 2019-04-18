@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.denis.podcatch.Adapters.PodcastDetailAdapter;
+import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Episode;
 import com.example.denis.podcatch.Models.Podcast;
 import com.example.denis.podcatch.Models.PodcastResults;
@@ -24,10 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PodcastDetailActivity extends AppCompatActivity {
+public class PodcastDetailActivity extends AppCompatActivity implements PodcastDetailAdapter.ItemClickListener{
     private RecyclerView recyclerView;
     private PodcastDetailAdapter adapter;
     private String id;
+    private List<Episode> episodes = null;
 
     private static final String TAG = PodcastDetailActivity.class.getSimpleName();
 
@@ -57,7 +59,8 @@ public class PodcastDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<PodcastResults> call, @NonNull Response<PodcastResults> response) {
                 final PodcastResults results = response.body();
-                getPodcastEpisodes(results.getEpisodes());
+                episodes = results.getEpisodes();
+                getPodcastEpisodes(episodes);
                 Log.d(TAG, "onResponse: episodes = "+ results.getEpisodes());
 
             }
@@ -70,7 +73,7 @@ public class PodcastDetailActivity extends AppCompatActivity {
     }
 
     private void getPodcastEpisodes(List<Episode> episodes){
-        adapter = new PodcastDetailAdapter(this, (ArrayList<Episode>) episodes);
+        adapter = new PodcastDetailAdapter(this, (ArrayList<Episode>) episodes, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -83,5 +86,14 @@ public class PodcastDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClickListener(String audioUrl) {
+        Intent intent = new Intent(PodcastDetailActivity.this,
+                EpisodePlayerActivity.class);
+        intent.putExtra(Constants.AUDIO_URL_KEY, audioUrl);
+        startActivity(intent);
+
     }
 }
