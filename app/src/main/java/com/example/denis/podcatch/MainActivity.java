@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.denis.podcatch.Adapters.MainAdapter;
+import com.example.denis.podcatch.Models.AppPreferences;
 import com.example.denis.podcatch.Models.Category;
 import com.example.denis.podcatch.Models.Results;
 import com.example.denis.podcatch.Network.ApiEndpointInterface;
@@ -65,5 +69,21 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "getPodcastCategories: method called");
         adapter = new MainAdapter(this, (ArrayList<Category>) categories);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_sign_out){
+            AppPreferences.clearPreferences(this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
