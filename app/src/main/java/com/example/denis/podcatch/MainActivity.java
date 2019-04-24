@@ -1,5 +1,6 @@
 package com.example.denis.podcatch;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.rv_parent);
-//        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_sign_out){
             AppPreferences.clearPreferences(this);
+        }
+        if (id == R.id.action_subscription){
+            Intent intent = new Intent(MainActivity.this, SubscriptionsActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
