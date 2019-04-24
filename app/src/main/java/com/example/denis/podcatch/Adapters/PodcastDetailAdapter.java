@@ -64,7 +64,7 @@ public class PodcastDetailAdapter extends RecyclerView.Adapter<PodcastDetailAdap
     }
 
     public interface ItemClickListener{
-        void onItemClickListener(String audioUrl, String posterUrl);
+        void onItemClickListener(Episode episode);
     }
 
     public class PodcastViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -80,9 +80,13 @@ public class PodcastDetailAdapter extends RecyclerView.Adapter<PodcastDetailAdap
 
         @Override
         public void onClick(View v) {
-          String url = episodes.get(getAdapterPosition()).getAudio();
-          String poster = episodes.get(getAdapterPosition()).getThumbnail();
-            itemClickListener.onItemClickListener(url, poster);
+//          String url = episodes.get(getAdapterPosition()).getAudio();
+//          String poster = episodes.get(getAdapterPosition()).getThumbnail();
+//          String title = episodes.get(getAdapterPosition()).getTitle();
+          Episode episode = episodes.get(getAdapterPosition());
+          itemClickListener.onItemClickListener(episode);
+//            itemClickListener.onItemClickListener(url, poster, title);
+
         }
     }
 }

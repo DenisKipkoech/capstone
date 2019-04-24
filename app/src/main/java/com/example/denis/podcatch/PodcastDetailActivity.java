@@ -1,6 +1,7 @@
 package com.example.denis.podcatch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,15 +10,21 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.denis.podcatch.Adapters.PodcastDetailAdapter;
+import com.example.denis.podcatch.Database.AppDatabase;
+import com.example.denis.podcatch.Database.AppExecutors;
 import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Episode;
 import com.example.denis.podcatch.Models.Podcast;
 import com.example.denis.podcatch.Models.PodcastResults;
 import com.example.denis.podcatch.Network.ApiEndpointInterface;
 import com.example.denis.podcatch.Network.RetrofitClientInstance;
+import com.example.denis.podcatch.Service.AudioPlayerService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +35,12 @@ import retrofit2.Response;
 public class PodcastDetailActivity extends AppCompatActivity implements PodcastDetailAdapter.ItemClickListener{
     private RecyclerView recyclerView;
     private PodcastDetailAdapter adapter;
-    private String id;
     private List<Episode> episodes = null;
+    private Button subButton;
+    private AppDatabase database;
+    private SharedPreferences preferences;
+    private boolean issubscribed;
+
 
     private static final String TAG = PodcastDetailActivity.class.getSimpleName();
 
@@ -37,17 +48,44 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podcast_detail);
+        subButton = findViewById(R.id.bt_subscribe);
+        preferences = this.getSharedPreferences(Constants.MY_PREFERENCE, MODE_PRIVATE);
+        database = AppDatabase.getInstance(this);
+
         recyclerView = findViewById(R.id.rv_episode);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
         Intent intent = getIntent();
         if (intent != null){
-            id = intent.getStringExtra("podcast_id");
-            makeApiCall(id);
+            Podcast podcast = intent.getParcelableExtra(Constants.PODCAST_KEY);
+            issubscribed = preferences.getBoolean(podcast.getId(), false);
+            if (issubscribed){subButton.setText(R.string.unsubscribe);}
+            makeApiCall(podcast.getId());
             Log.d(TAG, "onCreate: Api call made");
+
+            subButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!issubscribed){
+                        addPodcastToSubscription(podcast);
+                        subButton.setText(R.string.unsubscribe);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean(podcast.getId(), true);
+                        editor.commit();
+                    }else {
+                        removePodcastFromSubscription(podcast);
+                        subButton.setText(R.string.subscribe);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean(podcast.getId(), false);
+                        editor.commit();
+                    }
+
+                }
+            });
+
         }
-        Log.d(TAG, "onCreate: podcast id = "+id);
+
 
     }
 
@@ -77,6 +115,24 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
         recyclerView.setAdapter(adapter);
     }
 
+    private void addPodcastToSubscription(Podcast podcast){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                database.PodcastDao().insertPodcast(podcast);
+            }
+        });
+    }
+
+    private void removePodcastFromSubscription(Podcast podcast){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                database.PodcastDao().deletePodcast(podcast);
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_share, menu);
@@ -89,12 +145,15 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
     }
 
     @Override
-    public void onItemClickListener(String audioUrl, String posterUrl) {
+    public void onItemClickListener(Episode episode) {
         Intent intent = new Intent(PodcastDetailActivity.this,
-                EpisodePlayerActivity.class);
-        intent.putExtra(Constants.AUDIO_URL_KEY, audioUrl);
-        intent.putExtra(Constants.POSTER_URL_KEY, posterUrl);
-        startActivity(intent);
+                AudioPlayerService.class);
+        intent.putExtra(Constants.EPISODE_KEY, episode);
+        startService(intent);
 
+//        Intent intent = new Intent(PodcastDetailActivity.this,
+//                EpisodePlayerActivity.class);
+//        intent.putExtra(Constants.EPISODE_KEY, episode);
+//        startActivity(intent);
     }
 }
