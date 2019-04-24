@@ -28,4 +28,7 @@ public interface PodcastDao {
 
     @Query("SELECT * FROM podcast WHERE id = :id")
     Podcast loadPoadcastById(int id);
+
+    @Query("SELECT * FROM podcast")
+    List<Podcast> getPodcasts();
 }
