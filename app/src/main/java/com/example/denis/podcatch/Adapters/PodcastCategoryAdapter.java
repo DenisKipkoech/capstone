@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Podcast;
 import com.example.denis.podcatch.PodcastDetailActivity;
 import com.example.denis.podcatch.R;
@@ -47,8 +48,7 @@ public class PodcastCategoryAdapter extends RecyclerView.Adapter<PodcastCategory
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PodcastDetailActivity.class);
-                String id = podcast.getId();
-                intent.putExtra("podcast_id", id);
+                intent.putExtra(Constants.PODCAST_KEY, podcast);
 
                 context.startActivity(intent);
             }
