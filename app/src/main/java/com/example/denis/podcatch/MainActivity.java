@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.denis.podcatch.Adapters.MainAdapter;
 import com.example.denis.podcatch.Models.AppPreferences;
@@ -27,6 +29,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private MainAdapter adapter;
     private static final String TAG = "MainActivity";
 
@@ -34,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progressBar = findViewById(R.id.progress_bar);
         recyclerView = findViewById(R.id.rv_parent);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
 
         makeApiCall();
-        Log.d(TAG, "onCreate: api call made");
     }
 
     private void makeApiCall(){
@@ -54,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: method called");
                 final Results results = response.body();
                 getPodcastCategories(results.getCategories());
-                Log.d(TAG, "onResponse: results = "+results);
-                Log.d(TAG, "onResponse: response"+response.body());
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
