@@ -3,6 +3,8 @@ package com.example.denis.podcatch.Models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
@@ -10,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 @Entity(tableName = "podcast")
-public class Podcast {
+public class Podcast implements Parcelable {
 
     @SerializedName("total_episodes")
     private Integer totalEpisodes;
@@ -61,13 +63,72 @@ public class Podcast {
     public Podcast() {
     }
 
-    public Podcast(List<Episode> episodes, String title, String publisher, @NonNull String id) {
+    public Podcast(Integer totalEpisodes, List<Episode> episodes, Long nextEpisodePubDate, String description, String title, Long lastestPubDateMs, Long earliestPubDateMs, String publisher, String website, String listennotesUrl, @NonNull String id, String image, String email, Boolean explicitContent, String country, String thumbnail) {
+        this.totalEpisodes = totalEpisodes;
         this.episodes = episodes;
+        this.nextEpisodePubDate = nextEpisodePubDate;
+        this.description = description;
         this.title = title;
+        this.lastestPubDateMs = lastestPubDateMs;
+        this.earliestPubDateMs = earliestPubDateMs;
         this.publisher = publisher;
+        this.website = website;
+        this.listennotesUrl = listennotesUrl;
         this.id = id;
+        this.image = image;
+        this.email = email;
+        this.explicitContent = explicitContent;
+        this.country = country;
+        this.thumbnail = thumbnail;
     }
 
+    protected Podcast(Parcel in) {
+        if (in.readByte() == 0) {
+            totalEpisodes = null;
+        } else {
+            totalEpisodes = in.readInt();
+        }
+        episodes = in.createTypedArrayList(Episode.CREATOR);
+        if (in.readByte() == 0) {
+            nextEpisodePubDate = null;
+        } else {
+            nextEpisodePubDate = in.readLong();
+        }
+        description = in.readString();
+        title = in.readString();
+        if (in.readByte() == 0) {
+            lastestPubDateMs = null;
+        } else {
+            lastestPubDateMs = in.readLong();
+        }
+        if (in.readByte() == 0) {
+            earliestPubDateMs = null;
+        } else {
+            earliestPubDateMs = in.readLong();
+        }
+        publisher = in.readString();
+        website = in.readString();
+        listennotesUrl = in.readString();
+        id = in.readString();
+        image = in.readString();
+        email = in.readString();
+        byte tmpExplicitContent = in.readByte();
+        explicitContent = tmpExplicitContent == 0 ? null : tmpExplicitContent == 1;
+        country = in.readString();
+        thumbnail = in.readString();
+    }
+
+    public static final Creator<Podcast> CREATOR = new Creator<Podcast>() {
+        @Override
+        public Podcast createFromParcel(Parcel in) {
+            return new Podcast(in);
+        }
+
+        @Override
+        public Podcast[] newArray(int size) {
+            return new Podcast[size];
+        }
+    };
 
     public Integer getTotalEpisodes() {
         return totalEpisodes;
@@ -202,4 +263,48 @@ public class Podcast {
         this.thumbnail = thumbnail;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (totalEpisodes == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(totalEpisodes);
+        }
+        dest.writeTypedList(episodes);
+        if (nextEpisodePubDate == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(nextEpisodePubDate);
+        }
+        dest.writeString(description);
+        dest.writeString(title);
+        if (lastestPubDateMs == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(lastestPubDateMs);
+        }
+        if (earliestPubDateMs == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(earliestPubDateMs);
+        }
+        dest.writeString(publisher);
+        dest.writeString(website);
+        dest.writeString(listennotesUrl);
+        dest.writeString(id);
+        dest.writeString(image);
+        dest.writeString(email);
+        dest.writeByte((byte) (explicitContent == null ? 0 : explicitContent ? 1 : 2));
+        dest.writeString(country);
+        dest.writeString(thumbnail);
+    }
 }
