@@ -1,13 +1,13 @@
 package com.example.denis.podcatch;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.example.denis.podcatch.Adapters.SubscriptionsAdapter;
 import com.example.denis.podcatch.Database.MainViewModel;
@@ -18,6 +18,7 @@ import java.util.List;
 
 public class SubscriptionsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private TextView noSubcriptions;
     private SubscriptionsAdapter adapter;
 
 
@@ -25,6 +26,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscriptions);
+        noSubcriptions = findViewById(R.id.tv_no_subscriptions);
         recyclerView = findViewById(R.id.rv_subscriptions);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
@@ -41,10 +43,12 @@ public class SubscriptionsActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<Podcast> podcasts) {
                 if (podcasts!= null){
                     adapter.setPodcasts((ArrayList<Podcast>) podcasts);
+                }else {
+                    noSubcriptions.setText(R.string.no_subscriptions);
                 }
             }
         });
-
-
     }
+
+
 }
