@@ -1,6 +1,7 @@
 package com.example.denis.podcatch;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import com.example.denis.podcatch.Adapters.MainAdapter;
 import com.example.denis.podcatch.Models.AppPreferences;
 import com.example.denis.podcatch.Models.Category;
+import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Results;
 import com.example.denis.podcatch.Network.ApiEndpointInterface;
 import com.example.denis.podcatch.Network.RetrofitClientInstance;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private MainAdapter adapter;
+    private LinearLayoutManager layoutManager;
+    private Parcelable listState;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -39,11 +43,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progress_bar);
         recyclerView = findViewById(R.id.rv_parent);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false));
+        layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
 
         makeApiCall();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (layoutManager != null){
+            listState = layoutManager.onSaveInstanceState();
+            outState.putParcelable(Constants.LIST_STATE_KEY, listState);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null){
+            listState = savedInstanceState.getParcelable(Constants.LIST_STATE_KEY);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (listState != null){
+            layoutManager.onRestoreInstanceState(listState);
+        }
     }
 
     private void makeApiCall(){
