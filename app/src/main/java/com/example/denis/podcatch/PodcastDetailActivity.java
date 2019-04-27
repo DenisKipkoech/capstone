@@ -1,5 +1,6 @@
 package com.example.denis.podcatch;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
@@ -188,7 +189,7 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_share){
-            startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getParent())
+            startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(this)
             .setType("text/plain")
             .setText(podcastUrl)
             .getIntent(), getString(R.string.share)));
