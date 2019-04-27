@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.denis.podcatch.Adapters.PodcastDetailAdapter;
 import com.example.denis.podcatch.Database.AppDatabase;
@@ -24,6 +26,7 @@ import com.example.denis.podcatch.Models.PodcastResults;
 import com.example.denis.podcatch.Network.ApiEndpointInterface;
 import com.example.denis.podcatch.Network.RetrofitClientInstance;
 import com.example.denis.podcatch.Service.AudioPlayerService;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +43,8 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
     private PodcastDetailAdapter adapter;
     private List<Episode> episodes = null;
     private Button subButton;
+    private ImageView posterView;
+    private TextView titleView;
     private AppDatabase database;
     private SharedPreferences preferences;
     private boolean issubscribed;
@@ -52,6 +57,8 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podcast_detail);
         subButton = findViewById(R.id.bt_subscribe);
+        posterView = findViewById(R.id.imageView);
+        titleView = findViewById(R.id.tv_podcast_title);
         preferences = this.getSharedPreferences(Constants.MY_PREFERENCE, MODE_PRIVATE);
         database = AppDatabase.getInstance(this);
 
@@ -63,6 +70,10 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
         Intent intent = getIntent();
         if (intent != null){
             Podcast podcast = intent.getParcelableExtra(Constants.PODCAST_KEY);
+            Picasso.with(this)
+                    .load(podcast.getImage())
+                    .into(posterView);
+            titleView.setText(podcast.getTitle());
             issubscribed = preferences.getBoolean(podcast.getId(), false);
             if (issubscribed){subButton.setText(R.string.unsubscribe);}
             makeApiCall(podcast.getId());
