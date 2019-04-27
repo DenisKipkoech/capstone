@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +50,7 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
     private AppDatabase database;
     private SharedPreferences preferences;
     private boolean issubscribed;
+    private String podcastUrl;
 
 
     private static final String TAG = PodcastDetailActivity.class.getSimpleName();
@@ -137,6 +140,8 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
             @Override
             public void onResponse(@NonNull Call<PodcastResults> call, @NonNull Response<PodcastResults> response) {
                 final PodcastResults results = response.body();
+                podcastUrl = "Podcast listennotes url: "+
+                        String.valueOf(results.getListennotesUrl());
                 episodes = results.getEpisodes();
                 getPodcastEpisodes(episodes);
                 Log.d(TAG, "onResponse: episodes = "+ results.getEpisodes());
@@ -181,6 +186,13 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_share){
+            startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getParent())
+            .setType("text/plain")
+            .setText(podcastUrl)
+            .getIntent(), getString(R.string.share)));
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -191,4 +203,5 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
         intent.putExtra(Constants.EPISODE_KEY, episode);
         startActivity(intent);
     }
+
 }
