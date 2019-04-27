@@ -176,13 +176,8 @@ public class PodcastDetailActivity extends AppCompatActivity implements PodcastD
     @Override
     public void onItemClickListener(Episode episode) {
         Intent intent = new Intent(PodcastDetailActivity.this,
-                AudioPlayerService.class);
+                EpisodePlayerActivity.class);
         intent.putExtra(Constants.EPISODE_KEY, episode);
-        startService(intent);
-
-//        Intent intent = new Intent(PodcastDetailActivity.this,
-//                EpisodePlayerActivity.class);
-//        intent.putExtra(Constants.EPISODE_KEY, episode);
-//        startActivity(intent);
+        startActivity(intent);
     }
 }
