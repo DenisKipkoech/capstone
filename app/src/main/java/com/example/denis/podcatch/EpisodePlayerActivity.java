@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Episode;
@@ -22,6 +23,7 @@ public class EpisodePlayerActivity extends AppCompatActivity {
     private PlayerControlView playerControlView;
     private SimpleExoPlayer player;
     private ImageView posterView;
+    private TextView titleView;
 
     private Episode episode;
     private boolean mBound;
@@ -85,11 +87,13 @@ public class EpisodePlayerActivity extends AppCompatActivity {
     private void setUI(Episode episode){
         posterView = findViewById(R.id.podcast_poster);
         playerControlView = findViewById(R.id.player_control_view);
+        titleView = findViewById(R.id.tv_episode_title);
         if (episode.getImage() != null) {
             Picasso.with(this)
                     .load(episode.getImage())
                     .into(posterView);
         }
+        titleView.setText(episode.getTitle());
     }
 
 }
