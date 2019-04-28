@@ -1,7 +1,9 @@
 package com.example.denis.podcatch.Network;
 
-import com.example.denis.podcatch.Models.Podcast;
+
+import com.example.denis.podcatch.Models.PodcastResults;
 import com.example.denis.podcatch.Models.Results;
+import com.example.denis.podcatch.Models.SearchResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,8 +17,13 @@ public interface ApiEndpointInterface {
     );
 
     @GET("podcasts/{id}")
-    Call<Podcast> get_podcast_data(
+    Call<PodcastResults> get_podcast_data(
             @Path("id") String id
+    );
+
+    @GET("search")
+    Call<SearchResult> getSearch(
+            @Query("q") String search
     );
 
 }
