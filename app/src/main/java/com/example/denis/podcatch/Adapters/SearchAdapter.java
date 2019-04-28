@@ -56,6 +56,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     public void setEpisodes(ArrayList<Search> episodes) {
         this.episodes = episodes;
+        notifyDataSetChanged();
     }
 
     public interface ItemClickListener{
