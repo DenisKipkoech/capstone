@@ -15,6 +15,7 @@ import com.example.denis.podcatch.Adapters.SearchAdapter;
 import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Episode;
 import com.example.denis.podcatch.Models.Podcast;
+import com.example.denis.podcatch.Models.Search;
 import com.example.denis.podcatch.Models.SearchResult;
 import com.example.denis.podcatch.Network.ApiEndpointInterface;
 import com.example.denis.podcatch.Network.RetrofitClientInstance;
@@ -31,7 +32,6 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
     private SearchAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Parcelable listState;
-    private Podcast podcast;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
             @Override
             public void onResponse(@NonNull Call<SearchResult> call, @NonNull Response<SearchResult> response) {
                 final SearchResult searchResult = response.body();
-                adapter.setEpisodes((ArrayList<Episode>) searchResult.getEpisodes());
+                adapter.setEpisodes((ArrayList<Search>) searchResult.getEpisodes());
             }
 
             @Override

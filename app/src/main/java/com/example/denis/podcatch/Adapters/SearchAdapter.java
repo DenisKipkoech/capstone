@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.denis.podcatch.Models.Episode;
+import com.example.denis.podcatch.Models.Search;
 import com.example.denis.podcatch.R;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     private Context context;
-    private ArrayList<Episode> episodes = null;
+    private ArrayList<Search> episodes = null;
     final private  ItemClickListener clickListener;
 
     public SearchAdapter(Context context, ItemClickListener listener) {
@@ -35,13 +36,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        final Episode episode = episodes.get(holder.getAdapterPosition());
+        final Search episode = episodes.get(holder.getAdapterPosition());
         Picasso.with(context)
                 .load(episode.getImage())
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.poster);
 
-        holder.podcast_name.setText(episode.getTitle());
+        holder.podcast_name.setText(episode.getTitleOriginal());
 
     }
 
@@ -53,7 +54,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return episodes.size();
     }
 
-    public void setEpisodes(ArrayList<Episode> episodes) {
+    public void setEpisodes(ArrayList<Search> episodes) {
         this.episodes = episodes;
     }
 
@@ -74,7 +75,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         @Override
         public void onClick(View v) {
-            Episode episode = episodes.get(getAdapterPosition());
+            Search search = episodes.get(getAdapterPosition());
+            Episode episode = new Episode(
+                    search.getPubDateMs()
+                    ,search.getListennotesUrl()
+                    ,search.getId()
+                    ,search.getImage()
+                    ,search.getTitleOriginal()
+                    ,search.getThumbnail()
+                    ,search.getAudio()
+                    ,search.getAudioLength()
+            );
             clickListener.onItemClickListener(episode);
         }
     }
