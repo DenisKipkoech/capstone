@@ -10,20 +10,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.denis.podcatch.Models.Episode;
 import com.example.denis.podcatch.Models.Podcast;
 import com.example.denis.podcatch.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
+import java.util.Calendar;
+import java.util.Locale;
 
-public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdapter.SubscriptionViewHolder> {
+public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdapter.SubscriptionViewHolder>{
     private Context context;
     private ArrayList<Podcast> podcasts;
+    final private  ItemClickListener itemClickListener;
 
-    public SubscriptionsAdapter(Context context, ArrayList<Podcast> podcasts) {
+    public SubscriptionsAdapter(Context context, ItemClickListener listener) {
         this.context = context;
-        this.podcasts = podcasts;
+        this.itemClickListener = listener;
     }
 
     @NonNull
@@ -43,27 +46,39 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
                 .into(holder.poster);
 
         holder.podcast_name.setText(podcast.getTitle());
-
     }
 
     @Override
     public int getItemCount() {
-        return podcasts.size();
+        if (podcasts != null) {
+            return podcasts.size();
+        }
+        return 0;
     }
 
-    private void sendIntent(Podcast podcast){
-        Intent intent = new Intent();
-        intent.putExtra("id", podcast.getId());
-        context.startActivity(intent);
+
+    public void setPodcasts(ArrayList<Podcast> podcasts) {
+        this.podcasts = podcasts;
+        notifyDataSetChanged();
+    }
+    public interface ItemClickListener{
+        void onItemClickListener(Podcast podcast);
     }
 
-    public class SubscriptionViewHolder extends RecyclerView.ViewHolder{
+    public class SubscriptionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView poster;
         TextView podcast_name;
         public SubscriptionViewHolder(View itemView) {
             super(itemView);
             poster = itemView.findViewById(R.id.podcast_poster);
             podcast_name = itemView.findViewById(R.id.tv_podcast_name);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onItemClickListener(podcasts.get(getAdapterPosition()));
         }
     }
 }

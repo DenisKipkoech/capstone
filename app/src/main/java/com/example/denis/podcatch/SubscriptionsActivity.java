@@ -2,6 +2,7 @@ package com.example.denis.podcatch;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,7 @@ import com.example.denis.podcatch.Models.Podcast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubscriptionsActivity extends AppCompatActivity {
+public class SubscriptionsActivity extends AppCompatActivity implements SubscriptionsAdapter.ItemClickListener {
     private RecyclerView recyclerView;
     private TextView noSubcriptions;
     private SubscriptionsAdapter adapter;
@@ -35,7 +36,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new SubscriptionsAdapter(this);
+        adapter = new SubscriptionsAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
         getSubscriptions();
@@ -81,4 +82,10 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClickListener(Podcast podcast) {
+        Intent intent = new Intent(SubscriptionsActivity.this, PodcastDetailActivity.class);
+        intent.putExtra(Constants.PODCAST_KEY, podcast);
+        startActivity(intent);
+    }
 }
