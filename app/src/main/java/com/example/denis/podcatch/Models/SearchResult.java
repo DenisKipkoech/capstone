@@ -22,6 +22,14 @@ public class SearchResult {
     @Expose
     private Integer nextOffset;
 
+    public SearchResult(Integer total, Integer count, Double took, List<Search> episodes, Integer nextOffset) {
+        this.total = total;
+        this.count = count;
+        this.took = took;
+        this.episodes = episodes;
+        this.nextOffset = nextOffset;
+    }
+
     public Integer getTotal() {
         return total;
     }

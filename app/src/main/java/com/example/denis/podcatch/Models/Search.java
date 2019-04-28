@@ -73,6 +73,31 @@ public class Search {
     @Expose
     private List<Integer> genreIds = null;
 
+    public Search(String podcastTitleOriginal, String descriptionOriginal, String podcastId, Long audioLength, List<Object> transcriptsHighlighted, String podcastListennotesUrl, String descriptionHighlighted, String image, Integer itunesId, String audio, Long pubDateMs, String listennotesUrl, String publisherHighlighted, String rss, String titleOriginal, String podcastTitleHighlighted, String id, String titleHighlighted, String publisherOriginal, String thumbnail, Boolean explicitContent, List<Integer> genreIds) {
+        this.podcastTitleOriginal = podcastTitleOriginal;
+        this.descriptionOriginal = descriptionOriginal;
+        this.podcastId = podcastId;
+        this.audioLength = audioLength;
+        this.transcriptsHighlighted = transcriptsHighlighted;
+        this.podcastListennotesUrl = podcastListennotesUrl;
+        this.descriptionHighlighted = descriptionHighlighted;
+        this.image = image;
+        this.itunesId = itunesId;
+        this.audio = audio;
+        this.pubDateMs = pubDateMs;
+        this.listennotesUrl = listennotesUrl;
+        this.publisherHighlighted = publisherHighlighted;
+        this.rss = rss;
+        this.titleOriginal = titleOriginal;
+        this.podcastTitleHighlighted = podcastTitleHighlighted;
+        this.id = id;
+        this.titleHighlighted = titleHighlighted;
+        this.publisherOriginal = publisherOriginal;
+        this.thumbnail = thumbnail;
+        this.explicitContent = explicitContent;
+        this.genreIds = genreIds;
+    }
+
     public String getPodcastTitleOriginal() {
         return podcastTitleOriginal;
     }
