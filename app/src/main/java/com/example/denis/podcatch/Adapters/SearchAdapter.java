@@ -18,11 +18,12 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     private Context context;
-    private ArrayList<Search> episodes = null;
+    private ArrayList<Search> episodes;
     final private  ItemClickListener clickListener;
 
-    public SearchAdapter(Context context, ItemClickListener listener) {
+    public SearchAdapter(Context context,ArrayList<Search> episodes, ItemClickListener listener) {
         this.context = context;
+        this.episodes = episodes;
         this.clickListener = listener;
     }
 
@@ -43,21 +44,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 .into(holder.poster);
 
         holder.podcast_name.setText(episode.getTitleOriginal());
-
     }
 
     @Override
     public int getItemCount() {
-        if (episodes == null) {
+        if (episodes != null) {
+            return episodes.size();
+        }else{
             return 0;
         }
-        return episodes.size();
     }
 
-    public void setEpisodes(ArrayList<Search> episodes) {
-        this.episodes = episodes;
-        notifyDataSetChanged();
-    }
 
     public interface ItemClickListener{
         void onItemClickListener(Episode episode);
