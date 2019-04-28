@@ -23,7 +23,7 @@ public class Episode implements Parcelable {
     @SerializedName("description")
     @Expose
     private String description;
-    @SerializedName("title")
+    @SerializedName(value = "title", alternate = "title_original")
     @Expose
     private String title;
     @SerializedName("thumbnail")
