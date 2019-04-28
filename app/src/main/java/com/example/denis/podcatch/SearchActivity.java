@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.denis.podcatch.Adapters.SearchAdapter;
@@ -33,23 +34,26 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
     private LinearLayoutManager layoutManager;
     private Parcelable listState;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subscriptions);
-        noResult = findViewById(R.id.tv_no_subscriptions);
-        recyclerView = findViewById(R.id.rv_subscriptions);
+        setContentView(R.layout.activity_search);
+        noResult = findViewById(R.id.tv_no_search);
+        recyclerView = findViewById(R.id.rv_search);
         layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new SearchAdapter(this, this);
-        recyclerView.setAdapter(adapter);
+
 
         Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+        if (intent != null) {
+            String query = intent.getStringExtra(Constants.QUERY_KEY);
             makeSearch(query);
+
         }
+
+
     }
 
     private void makeSearch(String searchQuery){
@@ -60,7 +64,15 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
             @Override
             public void onResponse(@NonNull Call<SearchResult> call, @NonNull Response<SearchResult> response) {
                 final SearchResult searchResult = response.body();
-                adapter.setEpisodes((ArrayList<Search>) searchResult.getEpisodes());
+
+                ArrayList<Search> episodes = (ArrayList<Search>) searchResult.getEpisodes();
+                if (episodes == null){
+                    setNoResult();
+                }else {
+                    getSearchResults(episodes);
+
+                }
+
             }
 
             @Override
@@ -70,6 +82,14 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.I
         });
     }
 
+    private void getSearchResults(ArrayList<Search> results){
+        adapter = new SearchAdapter(this, results,this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setNoResult(){
+        noResult.setText(R.string.no_search_results);
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
