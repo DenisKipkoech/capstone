@@ -4,38 +4,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="4dp">
 
     <TextView
         android:id="@+id/tv_episode_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:textSize="18sp"
+        style="@style/primaryText"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="@dimen/episode_name_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BR Football Chat" />
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        style="@style/secondaryText"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_episode_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_episode_name"
         tools:text="1 day ago" />
 
     <TextView
         android:id="@+id/tv_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/secondaryText"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="232dp"
-        tools:text="150 min"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_episode_name" />
+        app:layout_constraintStart_toEndOf="@+id/tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_episode_name"
+        tools:text="150 min" />
 
 
 </android.support.constraint.ConstraintLayout>

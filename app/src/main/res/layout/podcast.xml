@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/podcast_pic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/pic_dimen"
+        android:layout_height="@dimen/pic_dimen"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,8 +17,8 @@
 
     <TextView
         android:id="@+id/podcast_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/primaryText"
+        android:layout_width="@dimen/pic_dimen"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         tools:text="TextView"
