@@ -20,6 +20,9 @@ import com.example.denis.podcatch.Models.Episode;
 import com.example.denis.podcatch.Service.AudioPlayerService;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 public class EpisodePlayerActivity extends AppCompatActivity {
@@ -31,8 +34,7 @@ public class EpisodePlayerActivity extends AppCompatActivity {
     private Episode episode;
     private boolean mBound;
     private AudioPlayerService playerService;
-
-
+    private AdView adView;
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -53,12 +55,15 @@ public class EpisodePlayerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episode_player);
-
         Intent intent = getIntent();
         if (intent != null) {
             episode = intent.getParcelableExtra(Constants.EPISODE_KEY);
             setUI(episode);
         }
+        adView = findViewById(R.id.adView);
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
     }
 
     private void initializePlayer(){
