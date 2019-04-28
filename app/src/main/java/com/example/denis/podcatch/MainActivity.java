@@ -27,6 +27,9 @@ import com.example.denis.podcatch.Models.Constants;
 import com.example.denis.podcatch.Models.Results;
 import com.example.denis.podcatch.Network.ApiEndpointInterface;
 import com.example.denis.podcatch.Network.RetrofitClientInstance;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MainAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Parcelable listState;
-    private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<Results>() {
             @Override
             public void onResponse(@NonNull Call<Results> call, @NonNull Response<Results> response) {
-                Log.d(TAG, "onResponse: method called");
                 final Results results = response.body();
                 getPodcastCategories(results.getCategories());
                 progressBar.setVisibility(View.GONE);
@@ -104,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getPodcastCategories(List<Category> categories){
-        Log.d(TAG, "getPodcastCategories: method called");
         adapter = new MainAdapter(this, (ArrayList<Category>) categories);
         recyclerView.setAdapter(adapter);
     }
