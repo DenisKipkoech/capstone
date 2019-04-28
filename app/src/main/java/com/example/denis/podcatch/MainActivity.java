@@ -11,13 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
+
 
 import com.example.denis.podcatch.Adapters.MainAdapter;
 import com.example.denis.podcatch.Models.AppPreferences;
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.search, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
 
         SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         ComponentName componentName = new ComponentName(this, SearchActivity.class);
