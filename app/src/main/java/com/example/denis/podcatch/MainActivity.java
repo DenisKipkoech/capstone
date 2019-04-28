@@ -118,9 +118,20 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
-        SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        ComponentName componentName = new ComponentName(this, SearchActivity.class);
-        searchView.setSearchableInfo(manager.getSearchableInfo(componentName));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra(Constants.QUERY_KEY, query);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
