@@ -40,16 +40,16 @@ public class Episode implements Parcelable {
     @Expose
     private Long audioLength;
 
-    public Episode(Long pubDateMs, String listennotesUrl, String id, String image, String description, String title, String thumbnail, String listennotesEditUrl, String audio, Long audioLength) {
+    public Episode(Long pubDateMs, String listennotesUrl, String id, String image, String title, String thumbnail, String audio, Long audioLength) {
 
         this.pubDateMs = pubDateMs;
         this.listennotesUrl = listennotesUrl;
         this.id = id;
         this.image = image;
-        this.description = description;
+
         this.title = title;
         this.thumbnail = thumbnail;
-        this.listennotesEditUrl = listennotesEditUrl;
+
 
         this.audio = audio;
         this.audioLength = audioLength;
