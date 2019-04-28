@@ -17,7 +17,7 @@ public class SearchResult {
     private Double took;
     @SerializedName("episodes")
     @Expose
-    private List<Episode> episodes = null;
+    private List<Search> episodes = null;
     @SerializedName("next_offset")
     @Expose
     private Integer nextOffset;
@@ -46,11 +46,11 @@ public class SearchResult {
         this.took = took;
     }
 
-    public List<Episode> getEpisodes() {
+    public List<Search> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<Episode> episodes) {
+    public void setEpisodes(List<Search> episodes) {
         this.episodes = episodes;
     }
 
