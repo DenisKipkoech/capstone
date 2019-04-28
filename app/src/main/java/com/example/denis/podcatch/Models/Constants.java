@@ -10,5 +10,5 @@ public class Constants {
     public static final String MY_PREFERENCE = "preference";
     public static final String LIST_STATE_KEY = "liststate";
 
-    public static final String PODCAST_ID_KEY = "podcast_id";
+    public static final String QUERY_KEY = "query_key";
 }
