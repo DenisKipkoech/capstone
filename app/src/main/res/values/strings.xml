@@ -2,4 +2,22 @@
     <string name="app_name">PodCatch</string>
 
     <string name="share">Share</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="playback_channel_name">Playback</string>
+
+    <string name="bt_sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="subscriptions">Subscriptions</string>
+
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
+
+    <string name="subscribed_podcasts">Subscribed Podcasts</string>
+    <string name="no_subscriptions">You have not subscribed to any Podcast</string>
+
+    <string name="action_search">Search</string>
+    <string name="search_hint">TED Hour</string>
+
+    <string name="no_search_results">No search results found</string>
 </resources>
