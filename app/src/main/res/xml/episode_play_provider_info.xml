@@ -4,6 +4,6 @@
     android:initialLayout="@layout/podcast_widget_provider"
     android:minWidth="180dp"
     android:minHeight="250dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/ic_launcher_background"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen"/>
